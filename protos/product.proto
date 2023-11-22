@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.fund.grpc.product";
+
+service ProductService {
+
+  rpc updateProductNetworth(UpdateProductNetworthRequest) returns (UpdateProductNetworthResponse){}
+
+  rpc queryProduct(QueryProductRequest) returns (QueryProductResponse){}
+}
+
+message QueryProductRequest {
+  string code = 1;
+}
+
+message UpdateProductNetworthRequest {
+
+}
+
+message UpdateProductNetworthResponse {
+  int64 code = 1;
+  string msg = 2;
+  UpdateProductNetworthData data = 3;
+}
+
+message UpdateProductNetworthData {
+
+}
+
+message QueryProductResponse {
+  int64 code = 1;
+
+  string msg = 2;
+  QueryProductData data = 3;
+}
+
+message QueryProductData {
+
+  // 产品代码
+  string code = 1;
+
+  // 产品名称
+  string name = 2;
+
+  //产品类型
+  string type = 3;
+
+  //产品风险等级
+  int32 risk_level = 4;
+
+  //产品状态
+  int32 status = 5;
+
+  //所属公司
+  string company = 6;
+
+  //产品经理
+  string manager = 7;
+
+  //起购额度
+  string buymin = 8;
+
+  //当前净值
+  string networth = 9;
+
+
+}
