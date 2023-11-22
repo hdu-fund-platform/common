@@ -1,4 +1,4 @@
-module common
+module github.com/hdu-fund-platform/common
 
 go 1.20
 
