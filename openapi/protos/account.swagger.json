@@ -6,13 +6,13 @@
   },
   "tags": [
     {
-      "name": "AccountService"
+      "name": "Account"
     },
     {
-      "name": "RiskSetService"
+      "name": "RiskSet"
     },
     {
-      "name": "BankCardService"
+      "name": "BankCard"
     }
   ],
   "consumes": [
@@ -24,7 +24,7 @@
   "paths": {
     "/account/v1/custom": {
       "get": {
-        "operationId": "AccountService_GetCustomInfo",
+        "operationId": "Account_GetCustomInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -59,7 +59,7 @@
           }
         ],
         "tags": [
-          "AccountService"
+          "Account"
         ]
       }
     }

@@ -8,7 +8,7 @@ option java_package = "com.fund.grpc.account";
 
 import "google/api/annotations.proto";
 
-service AccountService {
+service Account {
   rpc GetCustomInfo(GetCustomInfoRequest) returns (GetCustomInfoResponse) {
     option (google.api.http) = {
       get: "/account/v1/custom"
@@ -19,13 +19,13 @@ service AccountService {
   rpc PullBackCustom(PullBackCustomRequest) returns (PullBackCustomResponse) {}
 }
 
-service RiskSetService {
+service RiskSet {
   rpc SetRiskSet(SetRiskSetRequest) returns (SetRiskSetResponse) {}
   rpc GetRiskSet(GetRiskSetRequest) returns (GetRiskSetResponse) {}
   rpc SubmitAnswers(SubmitAnswersRequest) returns (SubmitAnswerResponse) {}
 }
 
-service BankCardService {
+service BankCard {
   rpc GetBankBalance(GetBankBalanceRequest) returns (GetBankBalanceResponse) {}
   rpc BindBankCard(BindBankCardRequest) returns(BindBankCardResponse) {}
   rpc UnbindBankCard(UnbindBankCardRequest) returns (UnbindBankCardResponse) {}

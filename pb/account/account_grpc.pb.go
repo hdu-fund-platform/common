@@ -18,510 +18,510 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// AccountServiceClient is the client API for AccountService service.
+// AccountClient is the client API for Account service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type AccountServiceClient interface {
+type AccountClient interface {
 	GetCustomInfo(ctx context.Context, in *GetCustomInfoRequest, opts ...grpc.CallOption) (*GetCustomInfoResponse, error)
 	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error)
 	UpdateCustomInfo(ctx context.Context, in *UpdateCustomInfoRequest, opts ...grpc.CallOption) (*UpdateCustomInfoResponse, error)
 	PullBackCustom(ctx context.Context, in *PullBackCustomRequest, opts ...grpc.CallOption) (*PullBackCustomResponse, error)
 }
 
-type accountServiceClient struct {
+type accountClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAccountServiceClient(cc grpc.ClientConnInterface) AccountServiceClient {
-	return &accountServiceClient{cc}
+func NewAccountClient(cc grpc.ClientConnInterface) AccountClient {
+	return &accountClient{cc}
 }
 
-func (c *accountServiceClient) GetCustomInfo(ctx context.Context, in *GetCustomInfoRequest, opts ...grpc.CallOption) (*GetCustomInfoResponse, error) {
+func (c *accountClient) GetCustomInfo(ctx context.Context, in *GetCustomInfoRequest, opts ...grpc.CallOption) (*GetCustomInfoResponse, error) {
 	out := new(GetCustomInfoResponse)
-	err := c.cc.Invoke(ctx, "/account.AccountService/GetCustomInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.Account/GetCustomInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountServiceClient) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error) {
+func (c *accountClient) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error) {
 	out := new(CreateAccountResponse)
-	err := c.cc.Invoke(ctx, "/account.AccountService/CreateAccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.Account/CreateAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountServiceClient) UpdateCustomInfo(ctx context.Context, in *UpdateCustomInfoRequest, opts ...grpc.CallOption) (*UpdateCustomInfoResponse, error) {
+func (c *accountClient) UpdateCustomInfo(ctx context.Context, in *UpdateCustomInfoRequest, opts ...grpc.CallOption) (*UpdateCustomInfoResponse, error) {
 	out := new(UpdateCustomInfoResponse)
-	err := c.cc.Invoke(ctx, "/account.AccountService/UpdateCustomInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.Account/UpdateCustomInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountServiceClient) PullBackCustom(ctx context.Context, in *PullBackCustomRequest, opts ...grpc.CallOption) (*PullBackCustomResponse, error) {
+func (c *accountClient) PullBackCustom(ctx context.Context, in *PullBackCustomRequest, opts ...grpc.CallOption) (*PullBackCustomResponse, error) {
 	out := new(PullBackCustomResponse)
-	err := c.cc.Invoke(ctx, "/account.AccountService/PullBackCustom", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.Account/PullBackCustom", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AccountServiceServer is the server API for AccountService service.
-// All implementations must embed UnimplementedAccountServiceServer
+// AccountServer is the server API for Account service.
+// All implementations must embed UnimplementedAccountServer
 // for forward compatibility
-type AccountServiceServer interface {
+type AccountServer interface {
 	GetCustomInfo(context.Context, *GetCustomInfoRequest) (*GetCustomInfoResponse, error)
 	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error)
 	UpdateCustomInfo(context.Context, *UpdateCustomInfoRequest) (*UpdateCustomInfoResponse, error)
 	PullBackCustom(context.Context, *PullBackCustomRequest) (*PullBackCustomResponse, error)
-	mustEmbedUnimplementedAccountServiceServer()
+	mustEmbedUnimplementedAccountServer()
 }
 
-// UnimplementedAccountServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedAccountServiceServer struct {
+// UnimplementedAccountServer must be embedded to have forward compatible implementations.
+type UnimplementedAccountServer struct {
 }
 
-func (UnimplementedAccountServiceServer) GetCustomInfo(context.Context, *GetCustomInfoRequest) (*GetCustomInfoResponse, error) {
+func (UnimplementedAccountServer) GetCustomInfo(context.Context, *GetCustomInfoRequest) (*GetCustomInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCustomInfo not implemented")
 }
-func (UnimplementedAccountServiceServer) CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error) {
+func (UnimplementedAccountServer) CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
 }
-func (UnimplementedAccountServiceServer) UpdateCustomInfo(context.Context, *UpdateCustomInfoRequest) (*UpdateCustomInfoResponse, error) {
+func (UnimplementedAccountServer) UpdateCustomInfo(context.Context, *UpdateCustomInfoRequest) (*UpdateCustomInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCustomInfo not implemented")
 }
-func (UnimplementedAccountServiceServer) PullBackCustom(context.Context, *PullBackCustomRequest) (*PullBackCustomResponse, error) {
+func (UnimplementedAccountServer) PullBackCustom(context.Context, *PullBackCustomRequest) (*PullBackCustomResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PullBackCustom not implemented")
 }
-func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
+func (UnimplementedAccountServer) mustEmbedUnimplementedAccountServer() {}
 
-// UnsafeAccountServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to AccountServiceServer will
+// UnsafeAccountServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AccountServer will
 // result in compilation errors.
-type UnsafeAccountServiceServer interface {
-	mustEmbedUnimplementedAccountServiceServer()
+type UnsafeAccountServer interface {
+	mustEmbedUnimplementedAccountServer()
 }
 
-func RegisterAccountServiceServer(s grpc.ServiceRegistrar, srv AccountServiceServer) {
-	s.RegisterService(&AccountService_ServiceDesc, srv)
+func RegisterAccountServer(s grpc.ServiceRegistrar, srv AccountServer) {
+	s.RegisterService(&Account_ServiceDesc, srv)
 }
 
-func _AccountService_GetCustomInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Account_GetCustomInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetCustomInfoRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServiceServer).GetCustomInfo(ctx, in)
+		return srv.(AccountServer).GetCustomInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.AccountService/GetCustomInfo",
+		FullMethod: "/account.Account/GetCustomInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).GetCustomInfo(ctx, req.(*GetCustomInfoRequest))
+		return srv.(AccountServer).GetCustomInfo(ctx, req.(*GetCustomInfoRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountService_CreateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Account_CreateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServiceServer).CreateAccount(ctx, in)
+		return srv.(AccountServer).CreateAccount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.AccountService/CreateAccount",
+		FullMethod: "/account.Account/CreateAccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).CreateAccount(ctx, req.(*CreateAccountRequest))
+		return srv.(AccountServer).CreateAccount(ctx, req.(*CreateAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountService_UpdateCustomInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Account_UpdateCustomInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateCustomInfoRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServiceServer).UpdateCustomInfo(ctx, in)
+		return srv.(AccountServer).UpdateCustomInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.AccountService/UpdateCustomInfo",
+		FullMethod: "/account.Account/UpdateCustomInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).UpdateCustomInfo(ctx, req.(*UpdateCustomInfoRequest))
+		return srv.(AccountServer).UpdateCustomInfo(ctx, req.(*UpdateCustomInfoRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountService_PullBackCustom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Account_PullBackCustom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PullBackCustomRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServiceServer).PullBackCustom(ctx, in)
+		return srv.(AccountServer).PullBackCustom(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.AccountService/PullBackCustom",
+		FullMethod: "/account.Account/PullBackCustom",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).PullBackCustom(ctx, req.(*PullBackCustomRequest))
+		return srv.(AccountServer).PullBackCustom(ctx, req.(*PullBackCustomRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
+// Account_ServiceDesc is the grpc.ServiceDesc for Account service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var AccountService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "account.AccountService",
-	HandlerType: (*AccountServiceServer)(nil),
+var Account_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "account.Account",
+	HandlerType: (*AccountServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetCustomInfo",
-			Handler:    _AccountService_GetCustomInfo_Handler,
+			Handler:    _Account_GetCustomInfo_Handler,
 		},
 		{
 			MethodName: "CreateAccount",
-			Handler:    _AccountService_CreateAccount_Handler,
+			Handler:    _Account_CreateAccount_Handler,
 		},
 		{
 			MethodName: "UpdateCustomInfo",
-			Handler:    _AccountService_UpdateCustomInfo_Handler,
+			Handler:    _Account_UpdateCustomInfo_Handler,
 		},
 		{
 			MethodName: "PullBackCustom",
-			Handler:    _AccountService_PullBackCustom_Handler,
+			Handler:    _Account_PullBackCustom_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "protos/account.proto",
 }
 
-// RiskSetServiceClient is the client API for RiskSetService service.
+// RiskSetClient is the client API for RiskSet service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type RiskSetServiceClient interface {
+type RiskSetClient interface {
 	SetRiskSet(ctx context.Context, in *SetRiskSetRequest, opts ...grpc.CallOption) (*SetRiskSetResponse, error)
 	GetRiskSet(ctx context.Context, in *GetRiskSetRequest, opts ...grpc.CallOption) (*GetRiskSetResponse, error)
 	SubmitAnswers(ctx context.Context, in *SubmitAnswersRequest, opts ...grpc.CallOption) (*SubmitAnswerResponse, error)
 }
 
-type riskSetServiceClient struct {
+type riskSetClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewRiskSetServiceClient(cc grpc.ClientConnInterface) RiskSetServiceClient {
-	return &riskSetServiceClient{cc}
+func NewRiskSetClient(cc grpc.ClientConnInterface) RiskSetClient {
+	return &riskSetClient{cc}
 }
 
-func (c *riskSetServiceClient) SetRiskSet(ctx context.Context, in *SetRiskSetRequest, opts ...grpc.CallOption) (*SetRiskSetResponse, error) {
+func (c *riskSetClient) SetRiskSet(ctx context.Context, in *SetRiskSetRequest, opts ...grpc.CallOption) (*SetRiskSetResponse, error) {
 	out := new(SetRiskSetResponse)
-	err := c.cc.Invoke(ctx, "/account.RiskSetService/SetRiskSet", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.RiskSet/SetRiskSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *riskSetServiceClient) GetRiskSet(ctx context.Context, in *GetRiskSetRequest, opts ...grpc.CallOption) (*GetRiskSetResponse, error) {
+func (c *riskSetClient) GetRiskSet(ctx context.Context, in *GetRiskSetRequest, opts ...grpc.CallOption) (*GetRiskSetResponse, error) {
 	out := new(GetRiskSetResponse)
-	err := c.cc.Invoke(ctx, "/account.RiskSetService/GetRiskSet", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.RiskSet/GetRiskSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *riskSetServiceClient) SubmitAnswers(ctx context.Context, in *SubmitAnswersRequest, opts ...grpc.CallOption) (*SubmitAnswerResponse, error) {
+func (c *riskSetClient) SubmitAnswers(ctx context.Context, in *SubmitAnswersRequest, opts ...grpc.CallOption) (*SubmitAnswerResponse, error) {
 	out := new(SubmitAnswerResponse)
-	err := c.cc.Invoke(ctx, "/account.RiskSetService/SubmitAnswers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.RiskSet/SubmitAnswers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// RiskSetServiceServer is the server API for RiskSetService service.
-// All implementations must embed UnimplementedRiskSetServiceServer
+// RiskSetServer is the server API for RiskSet service.
+// All implementations must embed UnimplementedRiskSetServer
 // for forward compatibility
-type RiskSetServiceServer interface {
+type RiskSetServer interface {
 	SetRiskSet(context.Context, *SetRiskSetRequest) (*SetRiskSetResponse, error)
 	GetRiskSet(context.Context, *GetRiskSetRequest) (*GetRiskSetResponse, error)
 	SubmitAnswers(context.Context, *SubmitAnswersRequest) (*SubmitAnswerResponse, error)
-	mustEmbedUnimplementedRiskSetServiceServer()
+	mustEmbedUnimplementedRiskSetServer()
 }
 
-// UnimplementedRiskSetServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedRiskSetServiceServer struct {
+// UnimplementedRiskSetServer must be embedded to have forward compatible implementations.
+type UnimplementedRiskSetServer struct {
 }
 
-func (UnimplementedRiskSetServiceServer) SetRiskSet(context.Context, *SetRiskSetRequest) (*SetRiskSetResponse, error) {
+func (UnimplementedRiskSetServer) SetRiskSet(context.Context, *SetRiskSetRequest) (*SetRiskSetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetRiskSet not implemented")
 }
-func (UnimplementedRiskSetServiceServer) GetRiskSet(context.Context, *GetRiskSetRequest) (*GetRiskSetResponse, error) {
+func (UnimplementedRiskSetServer) GetRiskSet(context.Context, *GetRiskSetRequest) (*GetRiskSetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRiskSet not implemented")
 }
-func (UnimplementedRiskSetServiceServer) SubmitAnswers(context.Context, *SubmitAnswersRequest) (*SubmitAnswerResponse, error) {
+func (UnimplementedRiskSetServer) SubmitAnswers(context.Context, *SubmitAnswersRequest) (*SubmitAnswerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SubmitAnswers not implemented")
 }
-func (UnimplementedRiskSetServiceServer) mustEmbedUnimplementedRiskSetServiceServer() {}
+func (UnimplementedRiskSetServer) mustEmbedUnimplementedRiskSetServer() {}
 
-// UnsafeRiskSetServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to RiskSetServiceServer will
+// UnsafeRiskSetServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to RiskSetServer will
 // result in compilation errors.
-type UnsafeRiskSetServiceServer interface {
-	mustEmbedUnimplementedRiskSetServiceServer()
+type UnsafeRiskSetServer interface {
+	mustEmbedUnimplementedRiskSetServer()
 }
 
-func RegisterRiskSetServiceServer(s grpc.ServiceRegistrar, srv RiskSetServiceServer) {
-	s.RegisterService(&RiskSetService_ServiceDesc, srv)
+func RegisterRiskSetServer(s grpc.ServiceRegistrar, srv RiskSetServer) {
+	s.RegisterService(&RiskSet_ServiceDesc, srv)
 }
 
-func _RiskSetService_SetRiskSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RiskSet_SetRiskSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetRiskSetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RiskSetServiceServer).SetRiskSet(ctx, in)
+		return srv.(RiskSetServer).SetRiskSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.RiskSetService/SetRiskSet",
+		FullMethod: "/account.RiskSet/SetRiskSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RiskSetServiceServer).SetRiskSet(ctx, req.(*SetRiskSetRequest))
+		return srv.(RiskSetServer).SetRiskSet(ctx, req.(*SetRiskSetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RiskSetService_GetRiskSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RiskSet_GetRiskSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRiskSetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RiskSetServiceServer).GetRiskSet(ctx, in)
+		return srv.(RiskSetServer).GetRiskSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.RiskSetService/GetRiskSet",
+		FullMethod: "/account.RiskSet/GetRiskSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RiskSetServiceServer).GetRiskSet(ctx, req.(*GetRiskSetRequest))
+		return srv.(RiskSetServer).GetRiskSet(ctx, req.(*GetRiskSetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RiskSetService_SubmitAnswers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RiskSet_SubmitAnswers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SubmitAnswersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RiskSetServiceServer).SubmitAnswers(ctx, in)
+		return srv.(RiskSetServer).SubmitAnswers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.RiskSetService/SubmitAnswers",
+		FullMethod: "/account.RiskSet/SubmitAnswers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RiskSetServiceServer).SubmitAnswers(ctx, req.(*SubmitAnswersRequest))
+		return srv.(RiskSetServer).SubmitAnswers(ctx, req.(*SubmitAnswersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// RiskSetService_ServiceDesc is the grpc.ServiceDesc for RiskSetService service.
+// RiskSet_ServiceDesc is the grpc.ServiceDesc for RiskSet service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var RiskSetService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "account.RiskSetService",
-	HandlerType: (*RiskSetServiceServer)(nil),
+var RiskSet_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "account.RiskSet",
+	HandlerType: (*RiskSetServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SetRiskSet",
-			Handler:    _RiskSetService_SetRiskSet_Handler,
+			Handler:    _RiskSet_SetRiskSet_Handler,
 		},
 		{
 			MethodName: "GetRiskSet",
-			Handler:    _RiskSetService_GetRiskSet_Handler,
+			Handler:    _RiskSet_GetRiskSet_Handler,
 		},
 		{
 			MethodName: "SubmitAnswers",
-			Handler:    _RiskSetService_SubmitAnswers_Handler,
+			Handler:    _RiskSet_SubmitAnswers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "protos/account.proto",
 }
 
-// BankCardServiceClient is the client API for BankCardService service.
+// BankCardClient is the client API for BankCard service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type BankCardServiceClient interface {
+type BankCardClient interface {
 	GetBankBalance(ctx context.Context, in *GetBankBalanceRequest, opts ...grpc.CallOption) (*GetBankBalanceResponse, error)
 	BindBankCard(ctx context.Context, in *BindBankCardRequest, opts ...grpc.CallOption) (*BindBankCardResponse, error)
 	UnbindBankCard(ctx context.Context, in *UnbindBankCardRequest, opts ...grpc.CallOption) (*UnbindBankCardResponse, error)
 }
 
-type bankCardServiceClient struct {
+type bankCardClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewBankCardServiceClient(cc grpc.ClientConnInterface) BankCardServiceClient {
-	return &bankCardServiceClient{cc}
+func NewBankCardClient(cc grpc.ClientConnInterface) BankCardClient {
+	return &bankCardClient{cc}
 }
 
-func (c *bankCardServiceClient) GetBankBalance(ctx context.Context, in *GetBankBalanceRequest, opts ...grpc.CallOption) (*GetBankBalanceResponse, error) {
+func (c *bankCardClient) GetBankBalance(ctx context.Context, in *GetBankBalanceRequest, opts ...grpc.CallOption) (*GetBankBalanceResponse, error) {
 	out := new(GetBankBalanceResponse)
-	err := c.cc.Invoke(ctx, "/account.BankCardService/GetBankBalance", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.BankCard/GetBankBalance", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bankCardServiceClient) BindBankCard(ctx context.Context, in *BindBankCardRequest, opts ...grpc.CallOption) (*BindBankCardResponse, error) {
+func (c *bankCardClient) BindBankCard(ctx context.Context, in *BindBankCardRequest, opts ...grpc.CallOption) (*BindBankCardResponse, error) {
 	out := new(BindBankCardResponse)
-	err := c.cc.Invoke(ctx, "/account.BankCardService/BindBankCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.BankCard/BindBankCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bankCardServiceClient) UnbindBankCard(ctx context.Context, in *UnbindBankCardRequest, opts ...grpc.CallOption) (*UnbindBankCardResponse, error) {
+func (c *bankCardClient) UnbindBankCard(ctx context.Context, in *UnbindBankCardRequest, opts ...grpc.CallOption) (*UnbindBankCardResponse, error) {
 	out := new(UnbindBankCardResponse)
-	err := c.cc.Invoke(ctx, "/account.BankCardService/UnbindBankCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/account.BankCard/UnbindBankCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// BankCardServiceServer is the server API for BankCardService service.
-// All implementations must embed UnimplementedBankCardServiceServer
+// BankCardServer is the server API for BankCard service.
+// All implementations must embed UnimplementedBankCardServer
 // for forward compatibility
-type BankCardServiceServer interface {
+type BankCardServer interface {
 	GetBankBalance(context.Context, *GetBankBalanceRequest) (*GetBankBalanceResponse, error)
 	BindBankCard(context.Context, *BindBankCardRequest) (*BindBankCardResponse, error)
 	UnbindBankCard(context.Context, *UnbindBankCardRequest) (*UnbindBankCardResponse, error)
-	mustEmbedUnimplementedBankCardServiceServer()
+	mustEmbedUnimplementedBankCardServer()
 }
 
-// UnimplementedBankCardServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedBankCardServiceServer struct {
+// UnimplementedBankCardServer must be embedded to have forward compatible implementations.
+type UnimplementedBankCardServer struct {
 }
 
-func (UnimplementedBankCardServiceServer) GetBankBalance(context.Context, *GetBankBalanceRequest) (*GetBankBalanceResponse, error) {
+func (UnimplementedBankCardServer) GetBankBalance(context.Context, *GetBankBalanceRequest) (*GetBankBalanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBankBalance not implemented")
 }
-func (UnimplementedBankCardServiceServer) BindBankCard(context.Context, *BindBankCardRequest) (*BindBankCardResponse, error) {
+func (UnimplementedBankCardServer) BindBankCard(context.Context, *BindBankCardRequest) (*BindBankCardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BindBankCard not implemented")
 }
-func (UnimplementedBankCardServiceServer) UnbindBankCard(context.Context, *UnbindBankCardRequest) (*UnbindBankCardResponse, error) {
+func (UnimplementedBankCardServer) UnbindBankCard(context.Context, *UnbindBankCardRequest) (*UnbindBankCardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnbindBankCard not implemented")
 }
-func (UnimplementedBankCardServiceServer) mustEmbedUnimplementedBankCardServiceServer() {}
+func (UnimplementedBankCardServer) mustEmbedUnimplementedBankCardServer() {}
 
-// UnsafeBankCardServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to BankCardServiceServer will
+// UnsafeBankCardServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to BankCardServer will
 // result in compilation errors.
-type UnsafeBankCardServiceServer interface {
-	mustEmbedUnimplementedBankCardServiceServer()
+type UnsafeBankCardServer interface {
+	mustEmbedUnimplementedBankCardServer()
 }
 
-func RegisterBankCardServiceServer(s grpc.ServiceRegistrar, srv BankCardServiceServer) {
-	s.RegisterService(&BankCardService_ServiceDesc, srv)
+func RegisterBankCardServer(s grpc.ServiceRegistrar, srv BankCardServer) {
+	s.RegisterService(&BankCard_ServiceDesc, srv)
 }
 
-func _BankCardService_GetBankBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _BankCard_GetBankBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetBankBalanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BankCardServiceServer).GetBankBalance(ctx, in)
+		return srv.(BankCardServer).GetBankBalance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.BankCardService/GetBankBalance",
+		FullMethod: "/account.BankCard/GetBankBalance",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BankCardServiceServer).GetBankBalance(ctx, req.(*GetBankBalanceRequest))
+		return srv.(BankCardServer).GetBankBalance(ctx, req.(*GetBankBalanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BankCardService_BindBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _BankCard_BindBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BindBankCardRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BankCardServiceServer).BindBankCard(ctx, in)
+		return srv.(BankCardServer).BindBankCard(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.BankCardService/BindBankCard",
+		FullMethod: "/account.BankCard/BindBankCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BankCardServiceServer).BindBankCard(ctx, req.(*BindBankCardRequest))
+		return srv.(BankCardServer).BindBankCard(ctx, req.(*BindBankCardRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BankCardService_UnbindBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _BankCard_UnbindBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UnbindBankCardRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BankCardServiceServer).UnbindBankCard(ctx, in)
+		return srv.(BankCardServer).UnbindBankCard(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.BankCardService/UnbindBankCard",
+		FullMethod: "/account.BankCard/UnbindBankCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BankCardServiceServer).UnbindBankCard(ctx, req.(*UnbindBankCardRequest))
+		return srv.(BankCardServer).UnbindBankCard(ctx, req.(*UnbindBankCardRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// BankCardService_ServiceDesc is the grpc.ServiceDesc for BankCardService service.
+// BankCard_ServiceDesc is the grpc.ServiceDesc for BankCard service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var BankCardService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "account.BankCardService",
-	HandlerType: (*BankCardServiceServer)(nil),
+var BankCard_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "account.BankCard",
+	HandlerType: (*BankCardServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetBankBalance",
-			Handler:    _BankCardService_GetBankBalance_Handler,
+			Handler:    _BankCard_GetBankBalance_Handler,
 		},
 		{
 			MethodName: "BindBankCard",
-			Handler:    _BankCardService_BindBankCard_Handler,
+			Handler:    _BankCard_BindBankCard_Handler,
 		},
 		{
 			MethodName: "UnbindBankCard",
-			Handler:    _BankCardService_UnbindBankCard_Handler,
+			Handler:    _BankCard_UnbindBankCard_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
