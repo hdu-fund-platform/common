@@ -2,6 +2,7 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "com.fund.grpc.product";
+option go_package = "./pb/product;product";
 
 service ProductService {
 

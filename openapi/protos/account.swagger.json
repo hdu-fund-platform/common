@@ -1,0 +1,342 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "protos/account.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AccountService"
+    },
+    {
+      "name": "RiskSetService"
+    },
+    {
+      "name": "BankCardService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/account/v1/custom": {
+      "get": {
+        "operationId": "AccountService_GetCustomInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/accountGetCustomInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "idCard",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "idType",
+            "description": " - IdentityCard: todo 其他证件类型待定\n\n中华人民共和国居民身份证",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "IdentityCard"
+            ],
+            "default": "IdentityCard"
+          }
+        ],
+        "tags": [
+          "AccountService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "accountBankCardInfo": {
+      "type": "object",
+      "properties": {
+        "bankCardType": {
+          "$ref": "#/definitions/accountBankCardType",
+          "title": "银行卡类型"
+        },
+        "bankCardNumber": {
+          "type": "string",
+          "title": "银行卡号"
+        }
+      }
+    },
+    "accountBankCardType": {
+      "type": "string",
+      "enum": [
+        "AbcDebitQuickPay",
+        "IcbcDebitQuickPay"
+      ],
+      "default": "AbcDebitQuickPay",
+      "description": "农业银行\n - IcbcDebitQuickPay: 工商银行",
+      "title": "- AbcDebitQuickPay: 参考缩写：https://help.epay.163.com/platform/question.html?quesId=2017010218HQ00000076"
+    },
+    "accountBindBankCardResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountCreateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountCustomIDType": {
+      "type": "string",
+      "enum": [
+        "IdentityCard"
+      ],
+      "default": "IdentityCard",
+      "description": "中华人民共和国居民身份证",
+      "title": "- IdentityCard: todo 其他证件类型待定"
+    },
+    "accountCustomType": {
+      "type": "string",
+      "enum": [
+        "Normal",
+        "Enterprise"
+      ],
+      "default": "Normal",
+      "description": "普通客户\n - Enterprise: 企业客户",
+      "title": "- Normal: todo 类型待定"
+    },
+    "accountGetBankBalanceResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountGetCustomInfoData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "客户id"
+        },
+        "name": {
+          "type": "string",
+          "title": "客户名称"
+        },
+        "type": {
+          "$ref": "#/definitions/accountCustomType",
+          "title": "客户类型"
+        },
+        "idType": {
+          "$ref": "#/definitions/accountCustomIDType",
+          "title": "客户证件类型"
+        },
+        "idCard": {
+          "type": "string",
+          "title": "客户证件号码"
+        },
+        "idCardValidityStart": {
+          "type": "string",
+          "format": "int64",
+          "title": "客户证件有效期开始时间，毫秒时间戳"
+        },
+        "idCardValidityEnd": {
+          "type": "string",
+          "format": "int64",
+          "title": "客户证件有效期结束时间，毫秒时间戳"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "title": "客户手机号"
+        },
+        "gender": {
+          "type": "boolean",
+          "title": "客户性别，true 为男性，false 为女性"
+        },
+        "isMarried": {
+          "type": "boolean",
+          "title": "客户是否已婚"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "int64",
+          "title": "客户开户日期，毫秒时间戳"
+        },
+        "riskLevel": {
+          "$ref": "#/definitions/accountRiskLevel",
+          "title": "客户风控承担等级"
+        },
+        "riskValidityEnd": {
+          "type": "string",
+          "format": "int64",
+          "title": "客户风控承担等级有效期结束时间，毫秒时间戳"
+        },
+        "bankCards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/accountBankCardInfo"
+          },
+          "title": "客户银行卡信息"
+        }
+      }
+    },
+    "accountGetCustomInfoResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/accountGetCustomInfoData"
+        }
+      }
+    },
+    "accountGetRiskSetResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountPullBackCustomResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountRiskLevel": {
+      "type": "string",
+      "enum": [
+        "WeakLevel",
+        "MiddleLevel",
+        "HighLevel"
+      ],
+      "default": "WeakLevel",
+      "title": "- WeakLevel: 低风险\n - MiddleLevel: 中风险\n - HighLevel: 高风险"
+    },
+    "accountSetRiskSetResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountSubmitAnswerResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountUnbindBankCardResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "accountUpdateCustomInfoResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

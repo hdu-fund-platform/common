@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+package account;
+
+option go_package="./pb/account;account";
+option java_multiple_files = true;
+option java_package = "com.fund.grpc.account";
+
+import "google/api/annotations.proto";
+
+service AccountService {
+  rpc GetCustomInfo(GetCustomInfoRequest) returns (GetCustomInfoResponse) {
+    option (google.api.http) = {
+      get: "/account/v1/custom"
+    };
+  }
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {}
+  rpc UpdateCustomInfo(UpdateCustomInfoRequest) returns (UpdateCustomInfoResponse) {}
+  rpc PullBackCustom(PullBackCustomRequest) returns (PullBackCustomResponse) {}
+}
+
+service RiskSetService {
+  rpc SetRiskSet(SetRiskSetRequest) returns (SetRiskSetResponse) {}
+  rpc GetRiskSet(GetRiskSetRequest) returns (GetRiskSetResponse) {}
+  rpc SubmitAnswers(SubmitAnswersRequest) returns (SubmitAnswerResponse) {}
+}
+
+service BankCardService {
+  rpc GetBankBalance(GetBankBalanceRequest) returns (GetBankBalanceResponse) {}
+  rpc BindBankCard(BindBankCardRequest) returns(BindBankCardResponse) {}
+  rpc UnbindBankCard(UnbindBankCardRequest) returns (UnbindBankCardResponse) {}
+}
+
+enum CustomType {
+  // todo 类型待定
+  Normal = 0; // 普通客户
+  Enterprise = 1; // 企业客户
+}
+
+enum CustomIDType {
+  // todo 其他证件类型待定
+  IdentityCard = 0; // 中华人民共和国居民身份证
+}
+
+enum RiskLevel {
+  WeakLevel = 0; // 低风险
+  MiddleLevel = 1; // 中风险
+  HighLevel = 2; // 高风险
+}
+
+enum BankCardType {
+  // 参考缩写：https://help.epay.163.com/platform/question.html?quesId=2017010218HQ00000076
+  AbcDebitQuickPay = 0; // 农业银行
+  IcbcDebitQuickPay = 1;// 工商银行
+}
+
+message GetCustomInfoRequest {
+  string id_card = 1;
+  CustomIDType id_type = 2;
+}
+
+message GetCustomInfoResponse {
+  int64 code = 1;
+  string msg = 2;
+  GetCustomInfoData data = 3;
+}
+
+message GetCustomInfoData {
+  int64 id = 1;    // 客户id
+  string name = 2; // 客户名称
+  CustomType  type = 3; // 客户类型
+  CustomIDType id_type = 4; // 客户证件类型
+  string id_card = 5; // 客户证件号码
+  int64 id_card_validity_start = 6; // 客户证件有效期开始时间，毫秒时间戳
+  int64 id_card_validity_end = 7; // 客户证件有效期结束时间，毫秒时间戳
+  string phone_number = 8; // 客户手机号
+  bool gender = 9; // 客户性别，true 为男性，false 为女性
+  bool is_married = 10; // 客户是否已婚
+  int64 created_date = 11; // 客户开户日期，毫秒时间戳
+  RiskLevel risk_level = 12; // 客户风控承担等级
+  int64 risk_validity_end = 13; // 客户风控承担等级有效期结束时间，毫秒时间戳
+  repeated BankCardInfo bank_cards = 14; // 客户银行卡信息
+}
+
+message BankCardInfo {
+  BankCardType bank_card_type = 1; // 银行卡类型
+  string bank_card_number = 2; // 银行卡号
+}
+
+message CreateAccountRequest {}
+message CreateAccountResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message UpdateCustomInfoRequest {}
+message UpdateCustomInfoResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message PullBackCustomRequest {}
+message PullBackCustomResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message SetRiskSetRequest {
+
+}
+
+message SetRiskSetResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message GetRiskSetRequest {
+
+}
+
+message GetRiskSetResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message SubmitAnswersRequest {
+
+}
+
+message SubmitAnswerResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message GetBankBalanceRequest {
+
+}
+
+message GetBankBalanceResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message BindBankCardRequest {}
+
+
+message BindBankCardResponse {
+  int64 code = 1;
+  string msg = 2;
+}
+
+message UnbindBankCardRequest {}
+
+message UnbindBankCardResponse {
+  int64 code = 1;
+  string msg = 2;
+}
